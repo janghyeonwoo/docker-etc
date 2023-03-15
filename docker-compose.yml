@@ -1,0 +1,36 @@
+version: "3" 
+
+# networks:
+#   front-connection:
+#     driver: bridge
+#   db-connection:
+#     driver: bridge
+
+services:
+
+  # pr-jenkins:  #pj-jenkins를 사용하면 에러가 나는데 이유를 모르겠음..
+  #   container_name: pr-jenkins
+  #   user: "root"                 # volume 폴더 젒근 권한 설정
+  #   build: ./jenkins/
+  #   volumes:
+  #     - ./jenkins/jenkins_home:/var/jenkins_home # jenkins 설치 폴더
+  #   environment: 
+  #     - "JENKINS_OPTS=--httpPort=9909"
+  #   ports:
+  #     - "9909:9909"
+  #     - "50000:50000"
+
+  pr-nginx:
+    container_name: pr-nginx
+    user: "root"
+    build: ./ubuntu
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - 9099:80
+    volumes:
+      - ./ubuntu/nginx/etc/nginx:/etc/nginx
+      - ./ubuntu/pooney:/home/pooney
+    command: sh -c "chmod 755 ./entrypoint.sh && chmod 755 ./app.sh"
+    # networks:
+    #   - front-connection

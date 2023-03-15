@@ -1,0 +1,11 @@
+FROM ubuntu:18.04
+
+
+RUN apt-get update && apt-get install -y vim && apt-get install -y nginx && apt-get install -y git && apt-get install wget && apt-get install upzip
+WORKDIR /home/pooney
+
+COPY ./gradle.sh ./etc/profile.d
+
+
+ENTRYPOINT ["sh","./entrypoint.sh"]
+

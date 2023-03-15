@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cmd=${1}
+
+baseDir="/home/pooney"
+
+if [ "$cmd" == "start" ]; then
+     sh $baseDir/app $cmd >> tmp.txt
+elif [ "$cmd" == "restart"]; then
+    echo "restart"
+elif [ "$cmd" == "stop"]; then
+    echo "stop"
+elif [ "$cmd!" == "patch"]; then
+    echo "patch"
+else
+    echo "else??"
+fi
+
+
