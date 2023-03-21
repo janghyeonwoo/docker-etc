@@ -1,4 +1,4 @@
-version: "3" 
+version: "3"
 
 # networks:
 #   front-connection:
@@ -14,7 +14,7 @@ services:
   #   build: ./jenkins/
   #   volumes:
   #     - ./jenkins/jenkins_home:/var/jenkins_home # jenkins 설치 폴더
-  #   environment: 
+  #   environment:
   #     - "JENKINS_OPTS=--httpPort=9909"
   #   ports:
   #     - "9909:9909"
@@ -26,11 +26,17 @@ services:
     build: ./ubuntu
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    privileged: true
     ports:
       - 9099:80
+      - 22:22
     volumes:
       - ./ubuntu/nginx/etc/nginx:/etc/nginx
       - ./ubuntu/pooney:/home/pooney
-    command: sh -c "chmod 755 ./entrypoint.sh && chmod 755 ./app.sh"
+    # environment:
+    #   - JAVA_HOME=/usr/lib/jdk-16.0.2
+
+    command: sh -c "/sbin/init"
+    # command: sh -c "chmod 755 ./entrypoint.sh && chmod 755 ./app && unlink /bin/sh &&  ln -s /bin/bash /bin/sh && sh ./entrypoint.sh && sh ./java_install && sh ./gradle_install && sh ./init.sh"
     # networks:
     #   - front-connection

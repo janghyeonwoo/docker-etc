@@ -1,11 +1,15 @@
 FROM ubuntu:18.04
 
 
-RUN apt-get update && apt-get install -y vim && apt-get install -y nginx && apt-get install -y git && apt-get install wget && apt-get install upzip
+RUN apt-get update && apt-get install -y vim && apt-get install -y nginx && apt-get install -y git && apt-get install -y wget && apt-get install -y unzip && unlink /bin/sh &&  ln -s /bin/bash /bin/sh && apt-get install -y init systemd && apt-get install net-tools && apt-get install openssh-server
+# RUN source start.sh
 WORKDIR /home/pooney
 
-COPY ./gradle.sh ./etc/profile.d
+COPY ./start.sh /home/pooney/
+
+CMD [ "systemctl" , "start", "sshd",  "systemctl", "status", "sshd"]
+
+# ENTRYPOINT ["source","start.sh"]
 
 
-ENTRYPOINT ["sh","./entrypoint.sh"]
-
+ #apt-get install net-tools && apt-get install openssh-server

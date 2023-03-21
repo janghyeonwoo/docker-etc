@@ -1,5 +1,0 @@
-#!/bin/bash
-wget https://services.gradle.org/distributions/gradle-7.0-bin.zip -P /tmp;
-unzip -d /opt/gradle '/tmp/gradle-*.zip';
-source /etc/profile.d/gradle.sh;
-gradle -v
